@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build files
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db
+*.log
+
+# Testing
+coverage/
+*.lcov
