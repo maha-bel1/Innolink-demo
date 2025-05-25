@@ -2,7 +2,339 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom base styles */
+/* Custom base styles with enhanced responsiveness */
+@layer base {
+  :root {
+    --mobile-breakpoint: 640px;
+    --tablet-breakpoint: 768px;
+    --desktop-breakpoint: 1024px;
+  }
+
+  body {
+    @apply antialiased text-gray-800 bg-gray-50 min-h-screen;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Responsive typography hierarchy */
+  h1, h2, h3, h4 {
+    @apply font-bold text-gray-900 leading-tight;
+  }
+  
+  h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  p {
+    @apply text-base sm:text-lg leading-relaxed;
+  }
+
+  /* Enhanced link states */
+  a {
+    @apply text-blue-600 hover:text-blue-800 focus:text-blue-900 transition-colors duration-200;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+  }
+
+  /* Responsive form elements */
+  input, textarea, select {
+    @apply text-base sm:text-lg;
+    @apply focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+}
+
+/* Enhanced responsive components */
+@layer components {
+  /* Buttons with better mobile targets */
+  .btn {
+    @apply min-w-[44px] min-h-[44px] flex items-center justify-center;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+           active:bg-blue-800 focus-visible:ring-2 focus-visible:ring-blue-500 
+           focus-visible:ring-offset-2 transition-all font-medium shadow-sm hover:shadow-md;
+  }
+  
+  .btn-outline {
+    @apply px-4 py-2 sm:px-6 sm:py-3 border-2 border-blue-600 text-blue-600 rounded-lg 
+           hover:bg-blue-50 active:bg-blue-100 transition-all font-medium;
+  }
+
+  /* Enhanced container system */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 w-full;
+    max-width: theme('screens.2xl');
+  }
+
+  /* Adaptive section spacing */
+  .section {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  /* Responsive cards */
+  .card {
+    @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 
+           border border-gray-100 p-4 sm:p-6;
+  }
+
+  /* Mobile-first navigation */
+  .mobile-menu {
+    @apply lg:hidden fixed inset-0 bg-white z-50 pt-20 px-6 transform transition-all duration-300;
+  }
+}
+
+/* Advanced responsive utilities */
+@layer utilities {
+  /* Text balancing for better readability */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Scroll margin for fixed headers */
+  .scroll-mt-header {
+    scroll-margin-top: theme('spacing.24');
+    
+    @media (max-width: theme('screens.md')) {
+      scroll-margin-top: theme('spacing.20');
+    }
+  }
+
+  /* Safe area padding for notches */
+  .safe-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Responsive aspect ratios */
+  .aspect-phone {
+    aspect-ratio: 9/16;
+    
+    @media (orientation: landscape) {
+      aspect-ratio: 16/9;
+    }
+  }
+
+  /* Reduced motion variants */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Touch device detection */
+  @media (pointer: coarse) {
+    .touch-device\:min-h-16 {
+      min-height: theme('spacing.16');
+    }
+  }
+}
+
+/* Orientation-specific styles */
+@media (orientation: portrait) {
+  .portrait\:flex-col {
+    flex-direction: column;
+  }
+}
+
+@media (orientation: landscape) {
+  .landscape\:flex-row {
+    flex-direction: row;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-gray-50;
+  }
+
+  .card {
+    @apply bg-gray-800 border-gray-700;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   body {
     @apply antialiased text-gray-800 bg-gray-50;
@@ -30,7 +362,7 @@
   }
 }
 
-/* Custom component classes */
+
 @layer components {
   .btn-primary {
     @apply px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium;
@@ -49,7 +381,7 @@
   }
 }
 
-/* Custom utilities */
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -58,6 +390,6 @@
   .scroll-mt-header {
     scroll-margin-top: 100px;
   }
-}
+}*/
 
 

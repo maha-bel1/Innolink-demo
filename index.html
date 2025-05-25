@@ -29,6 +29,18 @@
             width: 100%;
             min-height: 100vh;
         }
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Add animation classes */
+        .aos-init {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+        .aos-animate {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -41,7 +53,16 @@
     
     <!-- Initialize AOS (Animate On Scroll) -->
     <script>
-        AOS.init();
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic',
+                mirror: false,
+                anchorPlacement: 'top-bottom'
+            });
+        });
     </script>
 </body>
 </html>
