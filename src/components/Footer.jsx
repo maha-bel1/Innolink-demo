@@ -19,15 +19,28 @@ export default function Footer() {
     });
   };
 
+  // Social media links configuration
   const socialLinks = [
-    { name: 'twitter', url: 'https://twitter.com/DowokOfficial', label: 'Twitter' },
-    { name: 'linkedin-in', url: 'https://www.linkedin.com/company/dowok', label: 'LinkedIn' },
-    { name: 'facebook-f', url: 'https://www.facebook.com/DowokOfficial', label: 'Facebook' }
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/DowokOfficial',
+      label: 'Visit our Twitter page'
+    },
+    {
+      name: 'linkedin-in',
+      url: 'https://www.linkedin.com/company/dowok',
+      label: 'Visit our LinkedIn page'
+    },
+    {
+      name: 'facebook-f',
+      url: 'https://www.facebook.com/DowokOfficial',
+      label: 'Visit our Facebook page'
+    }
   ];
 
   return (
     <>
-      {/* Back to Top Button - Responsive positioning */}
+      {/* Back to Top Button */}
       <button 
         onClick={scrollToTop}
         className={`fixed left-4 sm:left-6 bottom-4 sm:bottom-6 z-50 p-3 sm:p-4 bg-blue-600 text-white rounded-full shadow-lg transition-all duration-300 ${
@@ -54,7 +67,7 @@ export default function Footer() {
         </svg>
       </button>
 
-      {/* Footer Content - Added id="contact" here */}
+      {/* Footer Content */}
       <footer id="contact" className="bg-gray-900 text-white pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
@@ -62,10 +75,10 @@ export default function Footer() {
             {/* Column 1 - About */}
             <div className="space-y-4">
               <h3 className="text-lg sm:text-xl font-bold">InnoLink</h3>
-              <p className="text-gray-400 text-sm sm:text-base">
+              <p className="text-gray-400 hover:text-white text-sm sm:text-base">
                 Connecter la Recherche à l'Innovation
               </p>
-              <p className="text-gray-400 text-sm sm:text-base">
+              <p className="text-gray-400 hover:text-white text-sm sm:text-base">
                 Une plateforme Dowok pour transformer les idées en impact.
               </p>
             </div>
@@ -114,7 +127,7 @@ export default function Footer() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-start">
                     <i className={`fas fa-${item.icon} mt-1 mr-3 text-gray-400 text-sm sm:text-base`}></i>
-                    <span className="text-gray-400 text-sm sm:text-base">{item.text}</span>
+                    <span className="text-gray-400 hover:text-white text-sm sm:text-base">{item.text}</span>
                   </li>
                 ))}
               </ul>
@@ -123,7 +136,7 @@ export default function Footer() {
           
           {/* Footer Bottom */}
           <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
-            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left ml-6 sm:ml-0-">
+            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left ml-12 sm:ml-8">
               &copy; {new Date().getFullYear()} InnoLink by Dowok. Tous droits réservés.
             </p>
             <div className="flex space-x-4 sm:space-x-6">
