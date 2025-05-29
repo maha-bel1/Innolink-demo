@@ -19,10 +19,10 @@ export default function WhyChoose() {
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-900 to-blue-800 text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-screen relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] bg-gradient-to-br from-blue-900 to-blue-800">
+      <section className="py-12 sm:py-16 lg:py-20 text-white w-full">
         {/* Header Section */}
-        <div className="text-center mb-12 sm:mb-16" data-aos="fade-up">
+        <div className="text-center mb-12 sm:mb-16 px-4 sm:px-6" data-aos="fade-up">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
             Pourquoi choisir <span className="text-blue-300">InnoLink</span> by Dowok ?
           </h2>
@@ -32,7 +32,7 @@ export default function WhyChoose() {
         </div>
         
         {/* Reasons Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto px-4 sm:px-6">
           {reasons.map((reason, index) => (
             <div 
               key={index}
@@ -49,7 +49,7 @@ export default function WhyChoose() {
         </div>
         
         {/* CTA Section */}
-        <div className="text-center mt-12 sm:mt-16" data-aos="fade-up" data-aos-delay="200">
+        <div className="text-center mt-12 sm:mt-16 px-4 sm:px-6" data-aos="fade-up" data-aos-delay="200">
           <button className="px-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-blue-50 text-blue-900 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 font-bold text-base sm:text-lg">
             <i className="fas fa-rocket mr-2"></i>
             Rejoindre l'écosystème InnoLink
@@ -67,10 +67,70 @@ export default function WhyChoose() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

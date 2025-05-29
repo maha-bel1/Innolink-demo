@@ -22,18 +22,13 @@ export default function Footer() {
   // Social media links configuration
   const socialLinks = [
     {
-      name: 'twitter',
-      url: 'https://twitter.com/DowokOfficial',
-      label: 'Visit our Twitter page'
-    },
-    {
       name: 'linkedin-in',
       url: 'https://www.linkedin.com/company/dowok',
       label: 'Visit our LinkedIn page'
     },
     {
       name: 'facebook-f',
-      url: 'https://www.facebook.com/DowokOfficial',
+      url: 'https://www.facebook.com/profile.php?id=100089348551605',
       label: 'Visit our Facebook page'
     }
   ];
@@ -89,12 +84,12 @@ export default function Footer() {
               <ul className="space-y-2 sm:space-y-3">
                 {['Espace Membres', 'Matching IA', 'Espace Projets', 'Financements'].map((item, i) => (
                   <li key={i}>
-                    <a 
-                      href="#" 
+                    <p
+                      
                       className="text-gray-400 hover:text-white transition-colors duration-200 text-sm sm:text-base block py-1"
                     >
                       {item}
-                    </a>
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -104,14 +99,19 @@ export default function Footer() {
             <div className="space-y-4">
               <h4 className="text-base sm:text-lg font-semibold">Ressources</h4>
               <ul className="space-y-2 sm:space-y-3">
-                {['Documentation', 'Blog', 'FAQ', 'Support'].map((item, i) => (
+                {[
+                  { name: 'Documentation', url: '/docs' },
+                  { name: 'Blog', url: '/blog' },
+                  { name: 'FAQ', url: '/faq' },
+                  { name: 'Support', url: '/support' }
+                ].map((item, i) => (
                   <li key={i}>
-                    <a 
-                      href="#" 
+                    <p
+                     
                       className="text-gray-400 hover:text-white transition-colors duration-200 text-sm sm:text-base block py-1"
                     >
-                      {item}
-                    </a>
+                      {item.name}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -136,7 +136,7 @@ export default function Footer() {
           
           {/* Footer Bottom */}
           <div className="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
-            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left ml-12 sm:ml-8">
+            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left ml-12 sm:ml-8 md:ml-16 md2:ml-16 lg:ml-20 xl:ml-24">
               &copy; {new Date().getFullYear()} InnoLink by Dowok. Tous droits réservés.
             </p>
             <div className="flex space-x-4 sm:space-x-6">
@@ -167,3 +167,4 @@ export default function Footer() {
     </>
   );
 }
+

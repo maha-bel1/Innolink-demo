@@ -18,16 +18,22 @@ import 'aos/dist/aos.css'
 function App() {
   const [loading, setLoading] = useState(true)
   const [deviceType, setDeviceType] = useState('desktop')
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
   useEffect(() => {
-    // Initialize AOS
+    // Initialize AOS with responsive settings
     AOS.init({
       duration: 1000,
-      once: true,
-      offset: 100,
+      once: false,
+      offset: 50,
       easing: 'ease-out-cubic',
-      mirror: false,
-      anchorPlacement: 'top-bottom'
+      mirror: true,
+      anchorPlacement: 'top-bottom',
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      disableMutationObserver: false,
+      delay: 0
     })
 
     // Handle preloader
@@ -35,22 +41,42 @@ function App() {
       setLoading(false)
     }, 1500)
 
-    // Check device type
+    // Enhanced device detection
     const checkDevice = () => {
       const width = window.innerWidth
+      const height = window.innerHeight
+      const isLandscape = width > height
+
+      // Set device type
       if (width < 475) {
         setDeviceType('xs')
+        setIsMobile(true)
+        setIsTablet(false)
       } else if (width < 640) {
         setDeviceType('sm')
+        setIsMobile(true)
+        setIsTablet(false)
       } else if (width < 768) {
         setDeviceType('md')
+        setIsMobile(false)
+        setIsTablet(true)
       } else if (width < 1024) {
         setDeviceType('lg')
+        setIsMobile(false)
+        setIsTablet(true)
       } else if (width < 1280) {
         setDeviceType('xl')
+        setIsMobile(false)
+        setIsTablet(false)
       } else {
         setDeviceType('2xl')
+        setIsMobile(false)
+        setIsTablet(false)
       }
+
+      // Add orientation class to body
+      document.body.classList.toggle('landscape', isLandscape)
+      document.body.classList.toggle('portrait', !isLandscape)
     }
 
     // Initial check
@@ -58,30 +84,59 @@ function App() {
 
     // Add resize listener with debounce
     let resizeTimer
-    window.addEventListener('resize', () => {
+    const handleResize = () => {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(checkDevice, 250)
-    })
+    }
+
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
+
+    // Refresh AOS on route change
+    const refreshAOS = () => {
+      AOS.refresh()
+    }
+
+    window.addEventListener('scroll', refreshAOS)
+    window.addEventListener('resize', refreshAOS)
 
     return () => {
       clearTimeout(timer)
       clearTimeout(resizeTimer)
-      window.removeEventListener('resize', checkDevice)
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+      window.removeEventListener('scroll', refreshAOS)
+      window.removeEventListener('resize', refreshAOS)
     }
   }, [])
 
-  // Component loading strategy with responsive animations
-  const renderComponent = (Component, deviceProps = {}, aosProps = {}) => (
-    <div 
-      className={`w-full ${deviceType === 'xs' || deviceType === 'sm' ? 'px-4' : 'px-6'}`}
-      data-aos={aosProps.animation || "fade-up"} 
-      data-aos-delay={aosProps.delay || "100"}
-      data-aos-duration={aosProps.duration || "1000"}
-      data-aos-easing={aosProps.easing || "ease-out-cubic"}
-    >
-      <Component {...(deviceType === 'xs' || deviceType === 'sm' ? deviceProps : {})} />
-    </div>
-  )
+  // Enhanced component rendering with responsive props
+  const renderComponent = (Component, deviceProps = {}, aosProps = {}) => {
+    const responsiveProps = {
+      isMobile,
+      isTablet,
+      deviceType,
+      ...deviceProps
+    }
+
+    return (
+      <div 
+        className={`
+          w-full 
+          ${isMobile ? 'px-4' : isTablet ? 'px-6' : 'px-8'}
+          ${aosProps.className || ''}
+        `}
+        data-aos={aosProps.animation || "fade-up"} 
+        data-aos-delay={aosProps.delay || "100"}
+        data-aos-duration={aosProps.duration || "1000"}
+        data-aos-easing={aosProps.easing || "ease-out-cubic"}
+        data-aos-mirror="true"
+        data-aos-once="false"
+      >
+        <Component {...responsiveProps} />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -89,34 +144,56 @@ function App() {
         <Preloader />
       ) : (
         <>
-          <Header deviceType={deviceType} />
+          <Header isMobile={isMobile} isTablet={isTablet} deviceType={deviceType} />
           
           {/* Hero Section - Full Width */}
-          <div data-aos="fade-in" data-aos-delay="0">
-            <Hero isMobile={deviceType === 'xs' || deviceType === 'sm'} />
+          <div 
+            data-aos="fade-in" 
+            data-aos-delay="0"
+            data-aos-mirror="true"
+            data-aos-once="false"
+            className="w-full"
+          >
+            <Hero isMobile={isMobile} isTablet={isTablet} deviceType={deviceType} />
           </div>
           
-          {/* Other Sections - Contained Width */}
+          {/* Main Content - Responsive Container */}
           <main className="flex-1 w-full max-w-[1536px] mx-auto">
-            {renderComponent(Features, { isMobile: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-up", delay: "200" })}
-            {renderComponent(MemberSpace, { compact: deviceType === 'xs' || deviceType === 'sm' }, { animation: "zoom-in", delay: "300" })}
-            {renderComponent(MatchingIntelligent, { isMobile: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-left", delay: "400" })}
-            {renderComponent(ProjectSpace, { compact: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-right", delay: "500" })}
-            {renderComponent(Funding, { compact: deviceType === 'xs' || deviceType === 'sm' }, { animation: "flip-up", delay: "600" })}
-            {renderComponent(TechWatch, { isMobile: deviceType === 'xs' || deviceType === 'sm' }, { animation: "zoom-in", delay: "700" })}
-            {renderComponent(Events, { compact: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-up", delay: "800" })}
-            {renderComponent(Support, { isMobile: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-left", delay: "900" })}
-            {renderComponent(WhyChoose, { compact: deviceType === 'xs' || deviceType === 'sm' }, { animation: "fade-right", delay: "1000" })}
+            {renderComponent(Features, { isMobile, isTablet }, { animation: "fade-up", delay: "200" })}
+            {renderComponent(MemberSpace, { isMobile, isTablet }, { animation: "zoom-in", delay: "300" })}
+            {renderComponent(MatchingIntelligent, { isMobile, isTablet }, { animation: "fade-left", delay: "400" })}
+            {renderComponent(ProjectSpace, { isMobile, isTablet }, { animation: "fade-right", delay: "500" })}
+            {renderComponent(Funding, { isMobile, isTablet }, { animation: "flip-up", delay: "600" })}
+            {renderComponent(TechWatch, { isMobile, isTablet }, { animation: "zoom-in", delay: "700" })}
+            {renderComponent(Events, { isMobile, isTablet }, { animation: "fade-up", delay: "800" })}
+            {renderComponent(Support, { isMobile, isTablet }, { animation: "fade-left", delay: "900" })}
+            {renderComponent(WhyChoose, { isMobile, isTablet }, { animation: "fade-right", delay: "1000" })}
           </main>
           
-          <Footer deviceType={deviceType} />
+          <div 
+            data-aos="fade-up"
+            data-aos-delay="1100"
+            data-aos-mirror="true"
+            data-aos-once="false"
+          >
+            <Footer isMobile={isMobile} isTablet={isTablet} deviceType={deviceType} />
+          </div>
         </>
       )}
 
       {/* Mobile-specific overlay */}
-      {(deviceType === 'xs' || deviceType === 'sm') && (
-        <div className="fixed bottom-4 right-4 z-50" data-aos="fade-up" data-aos-delay="1100">
-          <button className="bg-blue-600 text-white p-3 rounded-full shadow-xl hover:bg-blue-700 transition">
+      {isMobile && (
+        <div 
+          className="fixed bottom-4 right-4 z-50" 
+          data-aos="fade-up" 
+          data-aos-delay="1200"
+          data-aos-mirror="true"
+          data-aos-once="false"
+        >
+          <button 
+            className="bg-blue-600 text-white p-3 rounded-full shadow-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-110"
+            aria-label="Chat support"
+          >
             <i className="fas fa-comment-alt text-xl"></i>
           </button>
         </div>

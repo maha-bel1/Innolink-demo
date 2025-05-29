@@ -2,7 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1E40AF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>InnoLink by Dowok – Connecter la Recherche à l'Innovation</title>
     
     <!-- Preload critical resources -->
@@ -24,6 +27,8 @@
             width: 100%;
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
         #root {
             width: 100%;
@@ -41,6 +46,22 @@
         .aos-animate {
             opacity: 1;
         }
+        /* Responsive typography */
+        @media (max-width: 640px) {
+            html {
+                font-size: 14px;
+            }
+        }
+        @media (min-width: 641px) and (max-width: 1024px) {
+            html {
+                font-size: 15px;
+            }
+        }
+        @media (min-width: 1025px) {
+            html {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -56,51 +77,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({
                 duration: 1000,
-                once: true,
+                once: false,
                 offset: 100,
                 easing: 'ease-out-cubic',
-                mirror: false,
+                mirror: true,
                 anchorPlacement: 'top-bottom'
             });
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnoLink by Dowok – Connecter la Recherche à l'Innovation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-</head>
-<body>
-    <div id="root"></div>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script type="module" src="/src/main.jsx"></script>
-</body>
-</html> -->

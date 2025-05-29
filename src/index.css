@@ -1,0 +1,32 @@
+@media (min-width: 812px) and (max-width: 953px) {
+  .navbar-gap {
+    margin-left: 3rem;
+  }
+  .navbar-link-big {
+    font-size: 1.35rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 853px) and (max-width: 912px) {
+  .navbar-gap {
+    margin-left: 3.5rem;
+  }
+  .navbar-link-big {
+    font-size: 1.45rem;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+
+@media (width: 912px) {
+  .navbar-gap {
+    margin-left: 4rem;
+  }
+  .navbar-link-big {
+    font-size: 1.55rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

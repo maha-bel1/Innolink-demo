@@ -72,27 +72,6 @@ export default function Support() {
             </div>
           </div>
         </div>
-
-        {/* Additional Support Options (Mobile Only) */}
-        <div className="mt-8 lg:hidden">
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="font-medium text-gray-800 mb-3">Autres moyens de contact :</h4>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center">
-                <i className="fas fa-phone-alt text-blue-500 mr-2 w-5"></i>
-                <span>+33 1 23 45 67 89</span>
-              </li>
-              <li className="flex items-center">
-                <i className="fas fa-comment-alt text-blue-500 mr-2 w-5"></i>
-                <span>Chat en direct</span>
-              </li>
-              <li className="flex items-center">
-                <i className="fas fa-calendar-alt text-blue-500 mr-2 w-5"></i>
-                <span>Prendre rendez-vous</span>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
     </section>
   );
