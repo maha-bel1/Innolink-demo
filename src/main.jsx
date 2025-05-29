@@ -1,51 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import App from './App'
+import './styles/globals.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { securityHeaders } from './security'
 
-// Initialize AOS
-AOS.init({
-  duration: 1000,
-  once: true,
-  mirror: false,
-  disable: 'mobile'
-})
-
-// Apply security headers
-Object.entries(securityHeaders).forEach(([key, value]) => {
-  document.head.appendChild(
-    Object.assign(document.createElement('meta'), {
-      httpEquiv: key,
-      content: value
-    })
-  )
-})
-
-// Error boundary for the entire app
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { hasError: false }
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true }
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo)
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <h1>Something went wrong. Please try refreshing the page.</h1>
-    }
-
-    return this.props.children
-  }
+// Initialize AOS with responsive settings
+const initAOS = () => {
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: false,
+    mirror: true,
+    startEvent: 'DOMContentLoaded'
+  })
 }
 
 // Handle device orientation
@@ -60,14 +28,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
   <React.StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
+    <App />
   </React.StrictMode>
 )
 
 // Initialize responsive features
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize AOS
+  initAOS()
+  
   // Handle initial orientation
   handleOrientation()
   

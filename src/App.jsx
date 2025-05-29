@@ -21,20 +21,27 @@ function App() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
 
+  // Get environment variables
+  const enableAnimations = import.meta.env.VITE_ENABLE_ANIMATIONS === 'true'
+  const appTitle = import.meta.env.VITE_APP_TITLE || 'InnoLink Platform'
+  const appDescription = import.meta.env.VITE_APP_DESCRIPTION || 'Your Innovation Platform'
+
   useEffect(() => {
-    // Initialize AOS with responsive settings
-    AOS.init({
-      duration: 1000,
-      once: false,
-      offset: 50,
-      easing: 'ease-out-cubic',
-      mirror: true,
-      anchorPlacement: 'top-bottom',
-      disable: false,
-      startEvent: 'DOMContentLoaded',
-      disableMutationObserver: false,
-      delay: 0
-    })
+    // Initialize AOS with responsive settings if animations are enabled
+    if (enableAnimations) {
+      AOS.init({
+        duration: 1000,
+        once: false,
+        offset: 50,
+        easing: 'ease-out-cubic',
+        mirror: true,
+        anchorPlacement: 'top-bottom',
+        disable: false,
+        startEvent: 'DOMContentLoaded',
+        disableMutationObserver: false,
+        delay: 0
+      })
+    }
 
     // Handle preloader
     const timer = setTimeout(() => {
@@ -92,23 +99,32 @@ function App() {
     window.addEventListener('resize', handleResize)
     window.addEventListener('orientationchange', handleResize)
 
-    // Refresh AOS on route change
-    const refreshAOS = () => {
-      AOS.refresh()
-    }
+    // Refresh AOS on route change if animations are enabled
+    if (enableAnimations) {
+      const refreshAOS = () => {
+        AOS.refresh()
+      }
 
-    window.addEventListener('scroll', refreshAOS)
-    window.addEventListener('resize', refreshAOS)
+      window.addEventListener('scroll', refreshAOS)
+      window.addEventListener('resize', refreshAOS)
+
+      return () => {
+        clearTimeout(timer)
+        clearTimeout(resizeTimer)
+        window.removeEventListener('resize', handleResize)
+        window.removeEventListener('orientationchange', handleResize)
+        window.removeEventListener('scroll', refreshAOS)
+        window.removeEventListener('resize', refreshAOS)
+      }
+    }
 
     return () => {
       clearTimeout(timer)
       clearTimeout(resizeTimer)
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
-      window.removeEventListener('scroll', refreshAOS)
-      window.removeEventListener('resize', refreshAOS)
     }
-  }, [])
+  }, [enableAnimations])
 
   // Enhanced component rendering with responsive props
   const renderComponent = (Component, deviceProps = {}, aosProps = {}) => {
@@ -119,6 +135,15 @@ function App() {
       ...deviceProps
     }
 
+    const aosAttributes = enableAnimations ? {
+      'data-aos': aosProps.animation || "fade-up",
+      'data-aos-delay': aosProps.delay || "100",
+      'data-aos-duration': aosProps.duration || "1000",
+      'data-aos-easing': aosProps.easing || "ease-out-cubic",
+      'data-aos-mirror': "true",
+      'data-aos-once': "false"
+    } : {}
+
     return (
       <div 
         className={`
@@ -126,12 +151,7 @@ function App() {
           ${isMobile ? 'px-4' : isTablet ? 'px-6' : 'px-8'}
           ${aosProps.className || ''}
         `}
-        data-aos={aosProps.animation || "fade-up"} 
-        data-aos-delay={aosProps.delay || "100"}
-        data-aos-duration={aosProps.duration || "1000"}
-        data-aos-easing={aosProps.easing || "ease-out-cubic"}
-        data-aos-mirror="true"
-        data-aos-once="false"
+        {...aosAttributes}
       >
         <Component {...responsiveProps} />
       </div>
@@ -148,10 +168,12 @@ function App() {
           
           {/* Hero Section - Full Width */}
           <div 
-            data-aos="fade-in" 
-            data-aos-delay="0"
-            data-aos-mirror="true"
-            data-aos-once="false"
+            {...(enableAnimations ? {
+              'data-aos': "fade-in",
+              'data-aos-delay': "0",
+              'data-aos-mirror': "true",
+              'data-aos-once': "false"
+            } : {})}
             className="w-full"
           >
             <Hero isMobile={isMobile} isTablet={isTablet} deviceType={deviceType} />
@@ -171,10 +193,12 @@ function App() {
           </main>
           
           <div 
-            data-aos="fade-up"
-            data-aos-delay="1100"
-            data-aos-mirror="true"
-            data-aos-once="false"
+            {...(enableAnimations ? {
+              'data-aos': "fade-up",
+              'data-aos-delay': "1100",
+              'data-aos-mirror': "true",
+              'data-aos-once': "false"
+            } : {})}
           >
             <Footer isMobile={isMobile} isTablet={isTablet} deviceType={deviceType} />
           </div>
@@ -185,10 +209,12 @@ function App() {
       {isMobile && (
         <div 
           className="fixed bottom-4 right-4 z-50" 
-          data-aos="fade-up" 
-          data-aos-delay="1200"
-          data-aos-mirror="true"
-          data-aos-once="false"
+          {...(enableAnimations ? {
+            'data-aos': "fade-up",
+            'data-aos-delay': "1200",
+            'data-aos-mirror': "true",
+            'data-aos-once': "false"
+          } : {})}
         >
           <button 
             className="bg-blue-600 text-white p-3 rounded-full shadow-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-110"
