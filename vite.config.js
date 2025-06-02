@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/innolink-plateforme-Demo/',
+  base: '/Innolink-demo/',
   plugins: [react()],
   // Environment variables configuration
   envPrefix: 'VITE_',
