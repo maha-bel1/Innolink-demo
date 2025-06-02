@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1E40AF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>InnoLink by Dowok – Connecter la Recherche à l'Innovation</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style">
+    
+    <!-- CSS imports -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Inline critical CSS to avoid render-blocking -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #root {
+            width: 100%;
+            min-height: 100vh;
+        }
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Add animation classes */
+        .aos-init {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+        .aos-animate {
+            opacity: 1;
+        }
+        /* Responsive typography */
+        @media (max-width: 640px) {
+            html {
+                font-size: 14px;
+            }
+        }
+        @media (min-width: 641px) and (max-width: 1024px) {
+            html {
+                font-size: 15px;
+            }
+        }
+        @media (min-width: 1025px) {
+            html {
+                font-size: 16px;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/innolink-plateforme-Demo/assets/index-D3a5tFPo.js"></script>
+  <link rel="modulepreload" crossorigin href="/innolink-plateforme-Demo/assets/vendor-BRaCMJ4j.js">
+  <link rel="modulepreload" crossorigin href="/innolink-plateforme-Demo/assets/animations-CqkbAqlM.js">
+  <link rel="stylesheet" crossorigin href="/innolink-plateforme-Demo/assets/index-CVBa6G2f.css">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- JS imports at the end for better performance -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Initialize AOS (Animate On Scroll) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: false,
+                offset: 100,
+                easing: 'ease-out-cubic',
+                mirror: true,
+                anchorPlacement: 'top-bottom'
+            });
+        });
+    </script>
+</body>
+</html>
